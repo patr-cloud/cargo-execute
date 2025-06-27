@@ -14,7 +14,9 @@ fn main() -> ExitCode {
         return ExitCode::FAILURE;
     }
 
-    let Some(command) = args.nth(1) else {
+    let is_cargo_command = args.nth(0).as_deref() == Some("cargo");
+
+    let Some(command) = args.nth(is_cargo_command.then_some(2).unwrap_or(1)) else {
         eprintln!("No command provided.");
         eprintln!("Usage: {} <command> [args...]", args.next().unwrap());
         return ExitCode::FAILURE;
