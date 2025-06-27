@@ -23,6 +23,7 @@ fn main() -> ExitCode {
     process::exit(
         std::process::Command::new(command)
             .args(args)
+            .envs(std::env::vars())
             .stderr(Stdio::inherit())
             .stdout(Stdio::inherit())
             .stdin(Stdio::inherit())
